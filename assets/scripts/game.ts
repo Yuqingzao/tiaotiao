@@ -2,7 +2,7 @@ import {gamedata} from "./common/gamedata";
 import {gameevent} from "./common/gameevent";
 
 import { GameState } from "./common/gameconst";
-import { _decorator, Component, Node, Vec3 ,director,Label} from 'cc';
+import { _decorator, Component, Node, Vec3 ,director,Label,animation} from 'cc';
 const { ccclass, property } = _decorator;
 
 // 在类外部或类内部提前实例化一个复用变量，避免在 update 里反复 new / 产生垃圾
@@ -35,19 +35,53 @@ export class game extends Component {
     @property(Node)
     over: Node = null;
 
-    private acceleration: number = 0;
-    private speed: number = 280;
+    @property(Node)
+    player:Node=null;
+    private donghuakongzhi:animation.AnimationController=null
+    private ypos:number=-150;
+    private accelerationset: number = 0;
+    private speedset: number = 280;
+
+    private yaccelerationset: number = -400;
+    private yspeedset: number = 0;
+    
+    private acceleration: number = this.accelerationset;
+    private speed: number = this.speedset;
+
+    private yacceleration: number = this.yaccelerationset;
+    private yspeed: number = this.yspeedset;
 
     private grassInitPos: NodeInitPos[] = [];
     private buidingInitPos: NodeInitPos[] = [];
     private cloudInitPos: NodeInitPos[] = [];
 
+
+    private is_dimian:boolean = null;
+private has_gan:boolean = null;
+private is_chenggan:boolean = null;
+private is_up:boolean = null;
+private is_chengsan:boolean = null;
+private is_feng:boolean = null;
+private is_over:boolean = null;
+private cannagan:boolean=null;
+private mubiaoganzi:Node=null;
+private tiaoyuegaodu:number=500;
+
+
     private bgpos(deltaTime: number) {
         this.grasspos(deltaTime);
         this.buidingpos(deltaTime);
         this.cloudpos(deltaTime);
-    }
+        this.player_y(deltaTime);
 
+    }
+    private player_y(deltaTime: number){
+
+        this.yspeed+=this.yacceleration*deltaTime;
+        let ypos = this.player.getPosition().y + this.yspeed*deltaTime;
+this.player.setPosition(this.player.getPosition().x,Math.max(ypos,this.ypos));
+
+    }
     private grasspos(deltaTime: number) {
           if (!this.grass) {
             return;
@@ -135,6 +169,7 @@ export class game extends Component {
          this.saveInitPos();
          this.initialize();
          this.eventlistener();
+         this.donghuakongzhi=this.player.getComponent(animation.AnimationController)
     }
 
     private saveInitPos() {
@@ -181,15 +216,41 @@ export class game extends Component {
     }
 
     private touchstart() {
+        if(gamedata.instance.gamestate!=GameState.Playing){
+            return;
+        }
         console.log("touchstart");
+        if(this.is_dimian){
+            if(this.cannagan&&!this.has_gan){
+                this.has_gan=true;
+                this.mubiaoganzi.getChildByName("ganzi").active=false;
+                this.donghuakongzhi.setValue("has_gan", this.has_gan);
+            }else if(this.has_gan){
+                this.is_chenggan=true;
+               
+                this.donghuakongzhi.setValue("is_chenggan", this.is_chenggan);
+            }else{
+                this.yacceleration = 0;
+                this.yspeed = this.tiaoyuegaodu;
+            }
+        }
+       
+
+        
 
     }
 
     private touchend() {  
+        if(gamedata.instance.gamestate!=GameState.Playing){
+            return;
+        }
         console.log("touchend");
       }
 
     private touchcancel() {  
+        if(gamedata.instance.gamestate!=GameState.Playing){
+            return;
+        }
         console.log("touchcancel");
       }    
 
@@ -201,9 +262,23 @@ export class game extends Component {
         director.on(gameevent.GameOver, this._onGameOver,this);
         director.on(gameevent.addscore, this._addscore,this);
         director.on(gameevent.jixuyouxi, this._jixuyouxi,this);
+        director.on(gameevent.cannagan, this._cannagan,this);
+        director.on(gameevent.cannotnagan, this._cannotnagan,this);
     }
     private _jixuyouxi() {}
 
+
+    private _cannagan(data:{targetnode:Node}){
+        console.log("可以拿杆子");
+        this.cannagan=true;
+        this.mubiaoganzi=data.targetnode;
+        console.log("当前碰撞目标杆子：",this.mubiaoganzi.name);
+
+    }
+    private _cannotnagan(data:{targetnode:Node}){
+        console.log("不能拿杆子");
+        this.cannagan=false;
+    }
     private _addscore() {
         if(gamedata.instance.gamestate!=GameState.Playing){
             return;
@@ -255,10 +330,34 @@ export class game extends Component {
         director.off(gameevent.GameOver, this._onGameOver,this);
         director.off(gameevent.addscore, this._addscore,this);
         director.off(gameevent.jixuyouxi, this._jixuyouxi,this);
+        director.off(gameevent.cannagan, this._cannagan,this);
+        director.off(gameevent.cannotnagan, this._cannotnagan,this);
     }
+    private state_panduan(){
+        if(this.player.getPosition().y>this.ypos){
+            this.is_dimian=false;
+        }else{
+            this.is_dimian=true;
+             this.acceleration = this.accelerationset;
+        this.speed = this.speedset;
 
+        this.yacceleration = this.yaccelerationset;
+        this.yspeed = this.yspeedset;
+
+        }
+        if(this.yspeed>0){
+            this.is_up=true;
+        }else{
+            this.is_up=false;
+        }
+        this.donghuakongzhi.setValue("is_dimian", this.is_dimian);
+        this.donghuakongzhi.setValue("is_up", this.is_up);
+
+
+    }
     update(deltaTime: number) {
          this.speed+=this.acceleration*deltaTime;
       this.bgpos(deltaTime);
+        this.state_panduan();
     }
 }

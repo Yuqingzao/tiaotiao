@@ -1,0 +1,113 @@
+[
+  {
+    "__type__": "cc.AnimationClip",
+    "_name": "chenggan",
+    "_objFlags": 0,
+    "__editorExtras__": {
+      "embeddedPlayerGroups": []
+    },
+    "_native": "",
+    "sample": 8,
+    "speed": 1,
+    "wrapMode": 1,
+    "enableTrsBlending": false,
+    "_duration": 1,
+    "_hash": 500763545,
+    "_tracks": [
+      {
+        "__id__": 1
+      }
+    ],
+    "_exoticAnimation": null,
+    "_events": [],
+    "_embeddedPlayers": [],
+    "_additiveSettings": {
+      "__id__": 6
+    },
+    "_auxiliaryCurveEntries": []
+  },
+  {
+    "__type__": "cc.animation.ObjectTrack",
+    "_binding": {
+      "__type__": "cc.animation.TrackBinding",
+      "path": {
+        "__id__": 2
+      },
+      "proxy": null
+    },
+    "_channel": {
+      "__id__": 4
+    }
+  },
+  {
+    "__type__": "cc.animation.TrackPath",
+    "_paths": [
+      {
+        "__id__": 3
+      },
+      "spriteFrame"
+    ]
+  },
+  {
+    "__type__": "cc.animation.ComponentPath",
+    "component": "cc.Sprite"
+  },
+  {
+    "__type__": "cc.animation.Channel",
+    "_curve": {
+      "__id__": 5
+    }
+  },
+  {
+    "__type__": "cc.ObjectCurve",
+    "_times": [
+      0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875
+    ],
+    "_values": [
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@3be39",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@b4a4e",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@71148",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@b1720",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@5020d",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@6c19e",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@e697f",
+        "__expectedType__": "cc.SpriteFrame"
+      },
+      {
+        "__uuid__": "129db10e-c4d7-4062-b12e-ba8fe38d1fb2@7053b",
+        "__expectedType__": "cc.SpriteFrame"
+      }
+    ]
+  },
+  {
+    "__type__": "cc.AnimationClipAdditiveSettings",
+    "enabled": false,
+    "refClip": null
+  }
+]

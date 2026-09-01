@@ -18,9 +18,13 @@ export class playercollider extends Component {
             collider.off(Contact2DType.END_CONTACT,this.onEndContact,this)
         }
     }
-    private onEndContact() {
+    private onEndContact(me:Collider2D,other:Collider2D,data:IPhysics2DContact|null) {
         console.log("Player end contact with something");
+         if(me.tag==1){
+            if(other.tag==100){
+                director.emit(gameevent.cannotnagan)
     }
+}}
     private onBeginContact(me:Collider2D,other:Collider2D,data:IPhysics2DContact|null){
         console.log("Player contact with something");
         if(me.tag==1){
@@ -28,6 +32,8 @@ export class playercollider extends Component {
                 director.emit(gameevent.GameOver);
             }else if(other.tag==5){
                 director.emit(gameevent.addscore)
+            }else if(other.tag==100){
+                director.emit(gameevent.cannagan,{targetnode:other.node})
             }
         }
     }

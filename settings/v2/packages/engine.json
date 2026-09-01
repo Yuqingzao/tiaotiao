@@ -168,7 +168,7 @@
             "_value": true
           },
           "marionette": {
-            "_value": false
+            "_value": true
           },
           "procedural-animation": {
             "_value": false
@@ -205,6 +205,7 @@
           "gfx-webgl2",
           "graphics",
           "intersection-2d",
+          "marionette",
           "mask",
           "particle-2d",
           "physics-2d-builtin",
