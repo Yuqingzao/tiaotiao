@@ -770,6 +770,9 @@
       },
       {
         "__id__": 66
+      },
+      {
+        "__id__": 124
       }
     ],
     "destinationStart": 0,
@@ -1083,7 +1086,7 @@
   },
   {
     "__type__": "cc.animation.BindableBoolean",
-    "variable": "is_chenggan",
+    "variable": "is_chengsan",
     "value": false
   },
   {
@@ -1130,7 +1133,7 @@
   },
   {
     "__type__": "cc.animation.BindableBoolean",
-    "variable": "is_chenggan",
+    "variable": "is_chengsan",
     "value": false
   },
   {
@@ -1300,5 +1303,18 @@
     "__type__": "cc.animation.PlainVariable",
     "_type": 1,
     "_value": false
+  }
+,
+  {
+    "__type__": "cc.animation.UnaryCondition",
+    "operator": 1,
+    "operand": {
+      "__id__": 125
+    }
+  },
+  {
+    "__type__": "cc.animation.BindableBoolean",
+    "variable": "is_chenggan",
+    "value": false
   }
 ]
